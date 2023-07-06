@@ -72,16 +72,16 @@ app.post("/books", (req,res)=>{
 })
 
 app.delete("/books/:id",(req,res)=>{
-    if(ObjectId.isValid(req.param.id)){
-    db.collection('books')
-    .deleteOne({_id:new ObjectId(req.params.id)})
-    .then(result=>{
-        res.status(200).json(result)
-    })
-    .catch(err=>{
-        res.status(404).json({
-            error:"Could not delete book with specified id"
+    if(ObjectId.isValid(req.params.id)){
+        db.collection('books')
+        .deleteOne({_id:new ObjectId(req.params.id)})
+        .then(result=>{
+            res.status(200).json(result)
         })
-    })
+        .catch(err=>{
+            res.status(404).json({
+                error:"Could not delete book with specified id"
+            })
+        })
 }
 })
