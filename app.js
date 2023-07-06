@@ -21,10 +21,13 @@ if (!err){
 
 app.get("/books", (req,res)=>{
     let books=[]
-
+    const page=req.params.p || 0
+    const booksPerPage=3
     db.collection('books')
         .find()
         .sort({author:1})
+        .skip(page*booksPerPage)
+        .limit(booksPerPage)
         .forEach(book =>books.push(book))
         .then(()=>{
             res.status(200).json(books)
